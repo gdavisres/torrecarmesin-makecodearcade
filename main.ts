@@ -1440,6 +1440,7 @@ namespace userconfig {
     export const ARCADE_SCREEN_WIDTH = 256
     export const ARCADE_SCREEN_HEIGHT = 256
 }
+Intro()
 _smallKnight = sprites.create(assets.image`empty`, SpriteKind.Player)
 _smallArcher = sprites.create(assets.image`empty`, SpriteKind.Player)
 _smallMage = sprites.create(assets.image`empty`, SpriteKind.Player)
@@ -1475,7 +1476,7 @@ let _levelupScore = [
 130,
 145
 ]
-info.setScore(119)
+info.setScore(0)
 game.onUpdate(function () {
     if (_gameRunning) {
         if (_class == "knight") {
