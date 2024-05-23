@@ -980,7 +980,7 @@ function summonBat () {
     _enemyBat,
     assets.animation`myAnim7`,
     200,
-    false
+    true
     )
     _enemyBatHealthBar.attachToSprite(_enemyBat)
     statusbars.getStatusBarAttachedTo(StatusBarKind.EnemyHealth, _enemyBat).max = 100 * _enemyHealthMod
@@ -1333,7 +1333,7 @@ function summonsBoss () {
     boss,
     assets.animation`bossAnim`,
     200,
-    false
+    true
     )
     boss.setPosition(128, -16)
     MAX = 10
