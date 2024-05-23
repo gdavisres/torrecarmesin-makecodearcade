@@ -952,7 +952,7 @@ function preSetBossPosition (x: number, y: number) {
     started = false
     ready = false
     offset = 0
-    moveSpriteInTime(boss, x, y, 1)
+    moveSpriteInTime(boss, x, y, 3)
 }
 function summonBat () {
     _enemyBatHealthBar = statusbars.create(20, 3, StatusBarKind.EnemyHealth)
@@ -1027,6 +1027,7 @@ function summonSkeleton () {
     )
     _enemySkeletonHealthBar.attachToSprite(_enemySkeleton)
     statusbars.getStatusBarAttachedTo(StatusBarKind.EnemyHealth, _enemySkeleton).max = 50 * _enemyHealthMod
+    statusbars.getStatusBarAttachedTo(StatusBarKind.EnemyHealth, _enemySkeleton).value = 50 * _enemyHealthMod
     _enemySkeleton.setPosition(randint(scene.screenWidth() * 0.15, scene.screenWidth() * 0.85), randint(30, 45))
     _enemySkeleton.follow(_thePlayer, _enemySkeletonSpeedBase * _EnemySpeedMod)
     _enemySkeleton.setFlag(SpriteFlag.AutoDestroy, true)
@@ -1050,7 +1051,6 @@ sprites.onOverlap(SpriteKind.EnemySpiderProjectile, SpriteKind.PlayerProjectile,
 function summonWorm () {
     scene.cameraShake(4, 1000)
     music.play(music.createSoundEffect(WaveShape.Triangle, 1, 1, 255, 255, 3000, SoundExpressionEffect.Vibrato, InterpolationCurve.Linear), music.PlaybackMode.InBackground)
-    pause(1000)
     _enemyWorm = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -1311,24 +1311,7 @@ statusbars.onStatusReached(StatusBarKind.Energy, statusbars.StatusComparison.GTE
     }
 })
 function summonsBoss () {
-    boss = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.EnemyBoss)
+    boss = sprites.create(assets.image`bossoff`, SpriteKind.EnemyBoss)
     animation.runImageAnimation(
     boss,
     assets.animation`bossAnim`,
@@ -1457,7 +1440,6 @@ namespace userconfig {
     export const ARCADE_SCREEN_WIDTH = 256
     export const ARCADE_SCREEN_HEIGHT = 256
 }
-Intro()
 _smallKnight = sprites.create(assets.image`empty`, SpriteKind.Player)
 _smallArcher = sprites.create(assets.image`empty`, SpriteKind.Player)
 _smallMage = sprites.create(assets.image`empty`, SpriteKind.Player)
@@ -1493,7 +1475,7 @@ let _levelupScore = [
 130,
 145
 ]
-info.setScore(0)
+info.setScore(119)
 game.onUpdate(function () {
     if (_gameRunning) {
         if (_class == "knight") {
@@ -1525,8 +1507,12 @@ game.onUpdate(function () {
                 sprites.destroyAllSpritesOfKind(SpriteKind.EnemyBatProjectile)
                 sprites.destroyAllSpritesOfKind(SpriteKind.PlayerProjectile)
                 _stage += 1
+                if (_stage == 2) {
+                    _enemyHealthMod += 0.09
+                } else {
+                    _enemyHealthMod += 0.12
+                }
                 _EnemySpeedMod += 0.08
-                _enemyHealthMod += 0.09
                 music.stopAllSounds()
                 if (_stage == 2) {
                     music.play(music.melodyPlayable(music.beamUp), music.PlaybackMode.InBackground)
@@ -1600,7 +1586,7 @@ game.onUpdate(function () {
 })
 game.onUpdate(function () {
     if (bossTime) {
-        if (Math.abs(boss.x - globalX) + Math.abs(boss.y - globalY) <= 2) {
+        if (Math.abs(boss.x - globalX) + Math.abs(boss.y - globalY) <= 10) {
             boss.setVelocity(0, 0)
             if (!(ready)) {
                 bossProgress += 1
@@ -1725,9 +1711,7 @@ forever(function () {
             _enemySkeletonSummonCD = 2500
             summonSkeleton()
         } else if (_stage == 3) {
-            _enemySkeletonSpeedBase = 40
-            _enemySkeletonSummonCD = 2000
-            summonSkeleton()
+        	
         } else if (_stage == 4) {
             _enemySkeletonSpeedBase = 40
             _enemySkeletonSummonCD = 1500
@@ -1766,7 +1750,7 @@ forever(function () {
             _enemyGoblinSummonCD = 12000
             summonGoblin()
         } else if (_stage == 4) {
-            _enemyGoblinSummonCD = 10000
+            _enemyGoblinSummonCD = 12000
             summonGoblin()
         } else if (_stage == 5) {
         	
