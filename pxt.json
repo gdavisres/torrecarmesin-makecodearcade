@@ -1,5 +1,6 @@
 {
     "name": "TorreCarmesinMain1.9-PreFinal",
+    "version": "1.0.0",
     "description": "",
     "dependencies": {
         "device": "*",
