@@ -1182,7 +1182,7 @@ function unfreeze () {
     }
     for (let value of sprites.allOfKind(SpriteKind.SpecialProjectile)) {
         value.vx = sprites.readDataNumber(value, "vx")
-        value.vx = sprites.readDataNumber(value, "vx")
+        value.vy = sprites.readDataNumber(value, "vy")
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.EnemyBossProjectile, function (sprite, otherSprite) {
@@ -1457,6 +1457,7 @@ namespace userconfig {
     export const ARCADE_SCREEN_WIDTH = 256
     export const ARCADE_SCREEN_HEIGHT = 256
 }
+Intro()
 _smallKnight = sprites.create(assets.image`empty`, SpriteKind.Player)
 _smallArcher = sprites.create(assets.image`empty`, SpriteKind.Player)
 _smallMage = sprites.create(assets.image`empty`, SpriteKind.Player)
