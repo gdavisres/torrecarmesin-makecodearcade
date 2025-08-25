@@ -22,6 +22,7 @@ O Torrecarmesin é um projeto criado para aplicar conceitos de programação e l
 
 - Gabriel Davi [Arquitetura, Audiovisual e Programação]
 - Arthur Moutinho [Audiovisual e Programação]
+- Robert Leandro [Audiovisual e Programação]
 - Rafael Lucas [Programação]
 - Pablo Lemuel [Programação]
 
